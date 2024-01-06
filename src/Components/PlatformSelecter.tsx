@@ -4,11 +4,17 @@ import usePlatforms, { Platform } from "../hooks/usePlatforms";
 
 interface Props {
   onSelectedPlatform: (platform: Platform) => void;
-  selectedPlatform: Platform | null;
+  selectedPlatformId?: number;
 }
 
-const PlatformSelecter = ({ onSelectedPlatform, selectedPlatform }: Props) => {
+const PlatformSelecter = ({
+  onSelectedPlatform,
+  selectedPlatformId,
+}: Props) => {
   const { data, error } = usePlatforms();
+  const selectedPlatform = data?.results.find(
+    (p) => p.id === selectedPlatformId
+  );
 
   if (error) return null;
   return (
